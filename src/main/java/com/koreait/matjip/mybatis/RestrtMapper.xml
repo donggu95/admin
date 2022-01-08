@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Restrt">
+
+	<select id="selectAll" resultType="Restrt">
+		select * from restrt
+	</select>
+	
+	<select id="select" parameterType="int" resultType="Restrt">
+		select * from restrt where restrt_id=#{restrt_id}	
+	</select>
+
+	<insert id="insert" parameterType="Restrt">
+		insert into restrt(sigun_id,category_id,RESTRT_NM,	restrt_re	,REFINE_ROADNM_ADDR,	review_ea_id)
+		values(#{1}, #{category_id},#{RESTRT_NM},#{restrt_re},#{REFINE_ROADNM_ADDR},#{review_ea_id})
+	
+		<selectKey keyColumn="restrt_id" order="AFTER" resultType="int" keyProperty="">
+			select last_insert_id() as restrt_id
+		</selectKey>
+	</insert>
+	
+	<update id="update" parameterType="Restrt">
+		update restrt set sigun_id=#{sigun_id}, category_id=#{category_id} 
+		,RESTRT_NM=#{RESTRT_NM}, restrt_re= #{restrt_re}, REFINE_ROADNM_ADDR=#{REFINE_ROADNM_ADDR}
+		,review_ea_id=#{review_ea_id} 
+	</update>
+	
+	<delete id="delete">
+		delete from restrt where review_ea_id=#{review_ea_id} 
+	</delete>
+	
+</mapper>
+
+
+
