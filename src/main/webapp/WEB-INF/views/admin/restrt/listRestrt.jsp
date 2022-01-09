@@ -1,99 +1,135 @@
-<div class="navbar navbar-fixed-top navbar-default" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-        <!-- /.nav-collapse -->
+<%@page import="com.koreait.matjip.util.Pager"%>
+<%@page import="com.koreait.matjip.domain.Restrt"%>
+<%@page import="java.util.List"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+	List<Restrt> restrtList = (List)request.getAttribute("restrtList");//맛집목록
+	Pager pager = (Pager)request.getAttribute("pager"); //페이징 처리객체
+%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Dashboard</title>
+	
+	<%@ include file="../../inc/head_link.jsp" %>
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="/resources/admin/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+  </div>
+
+  <!-- Navbar -->
+  <%@ include file="../../inc/navbar.jsp" %>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <%@ include file="../../inc/sidebar.jsp" %>  
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard v1</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
     </div>
-    <!-- /.container -->
-</div>
-<!-- /.navbar -->
+    <!-- /.content-header -->
 
-<div class="container-fluid">
-    <div class="row row-offcanvas row-offcanvas-left">
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-            <div class="sidebar-nav">
-                <ul class="nav">
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Responsive Hover Table</h3>
 
-                    <li class="active"><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-divider"></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-divider"></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                </ul>
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>카테고리</th>
+                      <th>상품명</th>
+                      <th>가격</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  	<%int curPos=pager.getCurPos(); %>
+                  	<%int num=pager.getNum(); %>
+                    <%for(int i=1;i<=pager.getPageSize() ;i++){ %>
+                    <%if(num<1)break;%>
+                    <%Restrt restrt= restrtList.get(curPos++); %>
+                    <tr>
+                      <td><%=num--%></td>
+                      <td><%=restrt.getCategory().getCategory_name() %></td>
+                      <td><%=restrt.getRESTRT_NM() %></td>
+                      <td><%=restrt.getSigun_id() %></td>
+                    </tr>
+                    <%} %>
+                    <tr>
+                    	<td colspan="4">
+                    		<button type="button" class="btn btn-info" onClick="location.href='/admin/restrt/registform';">맛집등록</button>
+                    	</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
             </div>
-            <!--/.well -->
+            <!-- /.card -->
+          </div>
         </div>
-        <!--/span-->
+        
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  
+  <%@ include file="../../inc/footer.jsp" %>  
+  
 
-        <div class="col-xs-12 col-sm-9">
-            <br>
-            <div class="jumbotron">
-                <a href="#" class="visible-xs" data-toggle="offcanvas"><i class="fa fa-lg fa-reorder"></i></a>
-                <h1>Hello, world!</h1>
-                <p>This is an example to show the potential of an offcanvas layout pattern in Bootstrap. Try some responsive-range viewport sizes to see it in action.</p>
-            </div>
-            <div class="row">
-                <div class="col-6 col-sm-6 col-lg-4">
-                    <h2>Heading</h2>
-                    <p>Bootstrap is a front-end framework that uses CSS and JavaScript to facilitate responsive Web design. Bootply is a playground for Bootstrap that enables developers and designers to test, prototype and create mockups using Bootstrap
-                        friendly HTML, CSS and Javascript.</p>
-                    <p><a class="btn btn-default" href="#">View details �</a></p>
-                </div>
-                <!--/span-->
-                <div class="col-6 col-sm-6 col-lg-4">
-                    <h2>Heading</h2>
-                    <p>Bootply is a playground for Bootstrap that enables developers and designers to test, prototype and create mockups using Bootstrap friendly HTML, CSS and Javascript. Bootstrap is a front-end framework that uses CSS and JavaScript to
-                        facilitate responsive Web design. </p>
-                    <p><a class="btn btn-default" href="#">View details �</a></p>
-                </div>
-                <!--/span-->
-
-                <div class="col-6 col-sm-6 col-lg-4">
-                    <h2>Heading</h2>
-                    <p>Bootstrap is a front-end framework that uses CSS and JavaScript to facilitate responsive Web design. Bootply is a playground for Bootstrap that enables developers and designers to test, prototype and create mockups using Bootstrap
-                        friendly HTML, CSS and Javascript.</p>
-                    <p><a class="btn btn-default" href="#">View details �</a></p>
-                </div>
-                <!--/span-->
-                <div class="col-6 col-sm-6 col-lg-4">
-                    <h2>Heading</h2>
-                    <p>Bootstrap is a front-end framework that uses CSS and JavaScript to facilitate responsive Web design. Bootply is a playground for Bootstrap that enables developers and designers to test, prototype and create mockups using Bootstrap
-                        friendly HTML, CSS and Javascript.</p>
-                    <p><a class="btn btn-default" href="#">View details �</a></p>
-                </div>
-                <!--/span-->
-            </div>
-            <!--/row-->
-        </div>
-        <!--/span-->
-
-
-    </div>
-    <!--/row-->
-
-    <hr>
-
-    <footer>
-        <p>� Company 2013</p>
-    </footer>
-
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
 </div>
-<!--/.container-->
+<!-- ./wrapper -->
+
+<%@ include file="../../inc/bottom_link.jsp" %>
+
+</body>
+</html>

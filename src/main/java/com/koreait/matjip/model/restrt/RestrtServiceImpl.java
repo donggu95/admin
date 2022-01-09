@@ -15,12 +15,12 @@ public class RestrtServiceImpl implements RestrtService{
 
 	@Override
 	public List selectAll() {
-		return null;
+		return restrtDAO.selectAll();
 	}
 
 	@Override
 	public Restrt select(int restrt_id) {
-		return null;
+		return restrtDAO.select(restrt_id);
 	}
 
 	//적어도 맛집 등록이란
@@ -30,11 +30,13 @@ public class RestrtServiceImpl implements RestrtService{
 	}
 
 	@Override
-	public void update(Restrt restrt) {
+	public void update(Restrt restrt) throws RestrtException{
+		restrtDAO.update(restrt);
 	}
 
 	@Override
-	public void delete(int restrt_id) {
+	public void delete(int restrt_id) throws RestrtException{
+		restrtDAO.delete(restrt_id);
 	}
 
 }

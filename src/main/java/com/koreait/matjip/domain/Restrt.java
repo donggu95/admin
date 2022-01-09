@@ -8,7 +8,7 @@ import lombok.Data;
 public class Restrt {
 	private int restrt_id;
 	private int sigun_id;
-	private int category_id;
+	private Category category;
 	private String RESTRT_NM;
 	private String restrt_re;
 	private String REFINE_ROADNM_ADDR;

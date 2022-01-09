@@ -39,7 +39,9 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 
 	@Override
-	public void registSub(Category category) {
+	public void registSub(Category category) throws CategoryException{
+		categoryDAO.updateStep(category);
+		categoryDAO.insertSub(category);
 	}
 
 }

@@ -51,6 +51,15 @@ public class CategoryController {
 		return "admin/category/detail";
 	}
 	
+	//서브 카테고리 등록요청
+	@PostMapping("/category/registsub")
+	public String registSub(Category category) {
+		//3단계
+		categoryService.registSub(category);
+		
+		return "redirect:/admin/category/listRestrt";
+	}
+	
 	@ExceptionHandler(CategoryException.class)
 	public ModelAndView handle(CategoryException e) {
 		ModelAndView mav = new ModelAndView("admin/error/result");

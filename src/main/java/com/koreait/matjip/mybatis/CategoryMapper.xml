@@ -26,5 +26,33 @@
 		update category set team=#{team} where category_id=#{team}
 	</update>
 		
+	<!-- 서브카테고리 답변글 등록을 위한 자리확보 -->
+	<update id="updateStep" parameterType="Category">
+		
+		<selectKey order="BEFORE" keyColumn="step" resultType="int" keyProperty="step">
+		<![CDATA[
+		select ifnull(max(step),#{step}) as step from category
+		where team=#{team} and depth=#{depth}+1
+		and step > #{step}
+		]]>
+		</selectKey>
+			
+		<![CDATA[
+			update category set step=step+1
+			where team=#{team} and step > #{step}
+		]]>
+	</update>
+	
+	<insert id="insertSub" parameterType="Category">
+		insert into category(category_name, team, step, depth)
+		values(#{category_name}, #{team}, #{step}+1, #{depth}+1)
+	</insert>	
+	
 	
 </mapper>
+
+
+
+
+
+

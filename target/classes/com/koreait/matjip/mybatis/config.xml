@@ -7,12 +7,14 @@
 	<typeAliases>
 		<typeAlias type="com.koreait.matjip.domain.Restrt" alias="Restrt"/>
 		<typeAlias type="com.koreait.matjip.domain.Category" alias="Category"/>
+		<typeAlias type="com.koreait.matjip.domain.Notice" alias="Notice"/>
 	</typeAliases>
 
 
 	<mappers>
 		<mapper resource="com/koreait/matjip/mybatis/RestrtMapper.xml"/>
 		<mapper resource="com/koreait/matjip/mybatis/CategoryMapper.xml"/>
+		<mapper resource="com/koreait/matjip/mybatis/NoticeMapper.xml"/>
 	</mappers>
 
 	

@@ -18,12 +18,12 @@ public class MybatisRestrtDAO implements RestrtDAO{
 
 	@Override
 	public List selectAll() {
-		return null;
+		return sessionTemplate.selectList("Restrt.selectAll");
 	}
 
 	@Override
 	public Restrt select(int restrt_id) {
-		return null;
+		return sessionTemplate.selectOne("Restrt.select", restrt_id);
 	}
 
 	@Override
@@ -35,10 +35,22 @@ public class MybatisRestrtDAO implements RestrtDAO{
 	}
 
 	@Override
-	public void update(Restrt restrt) {
+	public void update(Restrt restrt) throws RestrtException{
+		int result=sessionTemplate.update("Restrt.update", restrt);
+		if(result==0) {
+			throw new RestrtException("맛집 수정 실패");
+		}
 	}
 
 	@Override
-	public void delete(int restrt_id) {
+	public void delete(int restrt_id) throws RestrtException{
+		int result=sessionTemplate.delete("Restrt.delete", restrt_id);
+		if(result==0) {
+			throw new RestrtException("맛집 삭제 실패");
+		}
 	}  
 }
+
+
+
+

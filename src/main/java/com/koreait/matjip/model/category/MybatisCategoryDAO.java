@@ -50,10 +50,15 @@ public class MybatisCategoryDAO implements CategoryDAO{
 
 	@Override
 	public void updateStep(Category category) {
+		sessionTemlate.update("Category.updateStep", category);
 	}
 
 	@Override
-	public void insertSub(Category category) {
+	public void insertSub(Category category) throws CategoryException{
+		int result=sessionTemlate.insert("Category.insertSub", category);
+		if(result==0) {
+			throw new CategoryException("하위 카테고리 입력 실패");
+		}
 	}
 
 }
